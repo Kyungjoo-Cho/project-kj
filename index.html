@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Project 자애법 | 조경주</title>
+
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/script.js" defer></script>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <!-- ======================
+         HEADER
+    ======================= -->
+
+    <header class="header">
+
+      <div class="artist-name">
+        <span class="name-ko">조경주</span>
+        <span class="name-en">CHO KYUNGJOO</span>
+      </div>
+
+      <div class="exhibition-label">
+        <span>HONGIK UNIV. ORIENTAL</span>
+        <span>GRADUATION EXHIBITION</span>
+      </div>
+
+    </header>
+
+
+    <!-- ======================
+         INTRO
+    ======================= -->
+
+    <section class="intro">
+
+      <p class="eyebrow">A PERSONAL ARCHIVE</p>
+
+      <h1>Project 자애법</h1>
+
+      <p class="subtitle">
+        마음이 지친 어느 누군가를 위한 공감과 위로
+      </p>
+
+    </section>
+
+
+    <!-- ======================
+         ACCORDION MENU
+    ======================= -->
+
+    <section class="accordion" aria-label="작품 콘텐츠">
+
+
+      <!-- ======================
+           01 ARTIST'S NOTE
+      ======================= -->
+
+      <div class="accordion-item">
+
+        <button
+          class="accordion-button"
+          type="button"
+          aria-expanded="false"
+          aria-controls="note-content"
+        >
+
+          <span class="menu-number">01</span>
+
+          <span class="menu-text">
+            <strong>작가노트</strong>
+            <small>Artist's Note</small>
+          </span>
+
+          <span class="arrow-circle" aria-hidden="true">
+            <span class="arrow-icon">↗</span>
+          </span>
+
+        </button>
+
+
+        <div id="note-content" class="accordion-content" hidden>
+
+          <div class="note-text">
+나의 작업은 현실에 대한 불안과 무력감, 그리고 그로 인해 발생하는 연약함과 상처로부터 출발한다. 삶 속에서 해소되지 못한 채 남아 끊임없이 움직이는 감각들을 회화의 물리적 행위와 재료의 물성으로 표현한다. 이 작업은 감정이 남긴 흔적과, 그로 인해 나타나는 감각과 반응의 변화, 그리고 그 과정을 화면 위에 드러내고자 한다.
+
+주로 먹과 호분을 사용한다. 먹은 장지에 스며들어 깊이 흔적을 남기고, 호분은 표면 위에 쌓인다. 특히 호분은 젖어있을 때 투명해졌다가 점차 마르면서 본래의 색을 드러낸다. 이러한 과정은 내면에 남아 있던 감정이 시간의 흐름에 따라 드러나고 변화하는 모습과 닮아 있다.
+
+작업 과정은 먹이 스며든 장지 위에 호분과 채색을 반복적으로 문지르고 덧칠하는 행위의 연속이다. 이는 화면을 지속적으로 자극하고 손상시키는 행위이다. 젖은 화면 위에서 이루어지는 붓질은 불균일한 얼룩과 요철을 만든다. 화면에 남겨진 흔적들은 외부로부터 가해지는 상처이자, 그에 반응하며 뒤엉키는 감정의 충돌이다. 손상과 흔들림이 남겨지는 과정을 그대로 드러냄으로써, 감정이 변화하고 축적되는 상태, 그리고 그 과정에서 소모되고 남겨지는 것들을 표현하고자 한다.
+
+나의 회화는 음악과도 연결된다. 잦은 상처로 인해 쉬어감이 필요한 무언의 사람들에게 전하는 메세지를 담은 자작곡 ‘잠수’는 회화에서 공감을 얻는 사람들에게 건네는 작은 위로다.
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ======================
+           02 MUSIC PLAYER
+      ======================= -->
+
+      <div class="accordion-item">
+
+        <button
+          class="accordion-button"
+          type="button"
+          aria-expanded="false"
+          aria-controls="music-content"
+        >
+
+          <span class="menu-number">02</span>
+
+          <span class="menu-text">
+            <strong>자작곡 재생</strong>
+            <small>Listen</small>
+          </span>
+
+          <span class="arrow-circle" aria-hidden="true">
+            <span class="arrow-icon">↗</span>
+          </span>
+
+        </button>
+
+
+        <div id="music-content" class="accordion-content" hidden>
+
+          <div class="player">
+
+            <div class="track-info">
+
+              <p class="track-label">
+                ORIGINAL SOUNDTRACK
+              </p>
+
+              <h3>잠수</h3>
+
+              <p class="track-artist">
+                CHO KYUNGJOO
+              </p>
+
+            </div>
+
+
+            <div class="player-controls">
+
+              <button
+                id="play-button"
+                class="play-button"
+                type="button"
+                aria-label="재생"
+              >▶</button>
+
+
+              <div class="progress-area">
+
+                <input
+                  id="progress"
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="0.1"
+                  value="0"
+                  aria-label="음악 재생 위치"
+                >
+
+                <div class="time-display">
+                  <span id="current-time">0:00</span>
+                  <span id="total-time">--:--</span>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ======================
+           03 LYRICS
+      ======================= -->
+
+      <div class="accordion-item">
+
+        <button
+          class="accordion-button"
+          type="button"
+          aria-expanded="false"
+          aria-controls="lyrics-content"
+        >
+
+          <span class="menu-number">03</span>
+
+          <span class="menu-text">
+            <strong>가사</strong>
+            <small>Lyrics</small>
+          </span>
+
+          <span class="arrow-circle" aria-hidden="true">
+            <span class="arrow-icon">↗</span>
+          </span>
+
+        </button>
+
+
+        <div id="lyrics-content" class="accordion-content" hidden>
+
+          <div class="lyrics-text">
+잠깐
+숨을 고르자
+
+요란한 수면 위를 벗어나
+
+익숙한 것들이
+닿지 않는 곳으로
+
+조금만 더 내려가자
+
+파도에 부서지지 않게
+
+발이 닿지 않아도 괜찮아
+
+그 안에서 떠돌자
+
+아무도 닿지 않고
+내 이름을 부르지 않는 곳에서
+
+어디로도 향하지 않은 채
+그냥 우리
+조금 느려지자
+
+그 안에서 머물자
+
+얼마라도 괜찮아
+하나도 늦지 않아
+바다는 계속 걷고 있으니
+
+굳이 애쓰지 않아도
+몸은 맡겨
+
+잔잔하더라도
+가라앉지도 않고
+떠오르지도 않은 채로
+
+그저 흘러가면 되는거야
+그게 하나의 발걸음이 될 거야
+
+혹시
+아무것도 하지 않는 내가
+여기에 머물러도 괜찮다면
+
+나도 이대로
+조금 더 있을게
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ======================
+           04 ACKNOWLEDGEMENTS
+      ======================= -->
+
+      <div class="accordion-item">
+
+        <button
+          class="accordion-button"
+          type="button"
+          aria-expanded="false"
+          aria-controls="thanks-content"
+        >
+
+          <span class="menu-number">04</span>
+
+          <span class="menu-text">
+            <strong>감사한 분들</strong>
+            <small>Acknowledgements</small>
+          </span>
+
+          <span class="arrow-circle" aria-hidden="true">
+            <span class="arrow-icon">↗</span>
+          </span>
+
+        </button>
+
+
+        <div id="thanks-content" class="accordion-content" hidden>
+
+          <ul class="thanks-list">
+
+            <li>한국의 칸예 김재윤</li>
+
+            <li>베이스의 신 김지우</li>
+
+            <li>지금이 저점인 최고가수 어보구의 신한영</li>
+
+            <li>천재 음악가인데 기타도 잘쳐 이강후</li>
+
+            <li>음악을 다룰 줄 아는 남자 조민재</li>
+
+            <li>
+              and... 이 모든 걸 해낼 수 있도록
+              나에게 영감을 준 김도균
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ======================
+         AUDIO
+         실제 음원은 마지막에 연결
+    ======================= -->
+
+    <audio id="audio" preload="metadata">
+      <source src="assets/song.mp3" type="audio/mpeg">
+    </audio>
+
+
+
+    <!-- ======================
+         FOOTER
+    ======================= -->
+
+    <footer class="footer">
+      <span>© 2026 CHO KYUNGJOO</span>
+    </footer>
+
+  </main>
+
+</body>
+</html>
