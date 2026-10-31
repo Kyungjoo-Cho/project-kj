@@ -518,8 +518,7 @@ function showConnectionError() {
 
 const firebaseConfig = {
 
-  apiKey:
-    "AIzaSyAziIz9lpVXLmjGNfp98Vk5rQiVaG7o7SM",
+  apiKey: "AIzaSyAziIz91pVXLmjGNfp98Vk5rQiVaG7o7SM",
 
   authDomain:
     "project-kj-ab7ca.firebaseapp.com",
