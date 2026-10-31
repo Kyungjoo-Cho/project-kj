@@ -1,7 +1,6 @@
 
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +8,17 @@
   <title>Project 자애법 | 조경주</title>
 
   <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- 사이트 기능은 Firebase와 별개로 먼저 실행 -->
   <script src="assets/js/script.js" defer></script>
+
+  <!-- Firebase 라이브러리 -->
+  <script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
 </head>
 
 <body>
-
   <main class="container">
 
     <!-- HEADER -->
@@ -32,7 +37,7 @@
     </header>
 
 
-    <!-- INTRO -->
+    <!-- PROJECT INTRO -->
     <section class="intro">
 
       <p class="eyebrow">A PERSONAL ARCHIVE</p>
@@ -46,11 +51,10 @@
     </section>
 
 
-    <!-- ACCORDION -->
+    <!-- ACCORDION MENU -->
     <section class="accordion" aria-label="작품 콘텐츠">
 
-
-      <!-- 01 ARTIST NOTE -->
+      <!-- 01 ARTIST'S NOTE -->
       <div class="accordion-item">
 
         <button
@@ -59,7 +63,6 @@
           aria-expanded="false"
           aria-controls="note-content"
         >
-
           <span class="menu-number">01</span>
 
           <span class="menu-text">
@@ -70,9 +73,7 @@
           <span class="arrow-circle" aria-hidden="true">
             <span class="arrow-icon">↗</span>
           </span>
-
         </button>
-
 
         <div id="note-content" class="accordion-content" hidden>
 
@@ -99,7 +100,6 @@
           aria-expanded="false"
           aria-controls="music-content"
         >
-
           <span class="menu-number">02</span>
 
           <span class="menu-text">
@@ -110,28 +110,23 @@
           <span class="arrow-circle" aria-hidden="true">
             <span class="arrow-icon">↗</span>
           </span>
-
         </button>
-
 
         <div id="music-content" class="accordion-content" hidden>
 
           <div class="player">
 
+            <!-- TRACK INFORMATION -->
             <div class="track-info">
 
-              <p class="track-label">
-                ORIGINAL SOUNDTRACK
-              </p>
+              <p class="track-label">ORIGINAL SOUNDTRACK</p>
 
               <div class="track-title-row">
                 <h3>잠수</h3>
                 <span class="demo-label">DEMO...</span>
               </div>
 
-              <p class="track-artist">
-                CHO KYUNGJOO
-              </p>
+              <p class="track-artist">CHO KYUNGJOO</p>
 
             </div>
 
@@ -168,10 +163,9 @@
             </div>
 
 
-            <!-- LIKE & COMMENT BUTTONS -->
+            <!-- LIKE AND COMMENT -->
             <div class="social-actions">
 
-              <!-- LIKE -->
               <button
                 id="like-button"
                 class="social-button"
@@ -179,12 +173,23 @@
                 aria-label="좋아요"
                 aria-pressed="false"
               >
-                <span class="heart-symbol">♡</span>
+                <svg
+                  class="heart-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+
                 <span id="like-count">0</span>
               </button>
 
 
-              <!-- COMMENT -->
               <button
                 id="comment-toggle"
                 class="social-button"
@@ -193,12 +198,9 @@
                 aria-expanded="false"
                 aria-controls="comment-panel"
               >
-
                 <svg
                   class="comment-icon"
                   viewBox="0 0 24 24"
-                  width="22"
-                  height="22"
                   fill="none"
                   stroke="currentColor"
                   stroke-width="1.8"
@@ -206,71 +208,11 @@
                   stroke-linejoin="round"
                   aria-hidden="true"
                 >
-                  <path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5 9 9 0 0 1-4-.9L3 21l1.9-5.5A9 9 0 1 1 21 11.5Z"></path>
+                  <path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5 9 9 0 0 1-4-.9L3 21l1.9-5.5A9 9 0 1 1 21 11.5Z"/>
                 </svg>
 
                 <span id="comment-count">0</span>
-
               </button>
-
-            </div>
-
-
-            <!-- COMMENT PANEL -->
-            <div
-              id="comment-panel"
-              class="comment-panel"
-              hidden
-            >
-
-              <h4>댓글 남기기</h4>
-
-              <form id="comment-form">
-
-                <label for="comment-name">
-                  닉네임
-                </label>
-
-                <input
-                  id="comment-name"
-                  type="text"
-                  maxlength="20"
-                  placeholder="닉네임을 입력해주세요"
-                  required
-                >
-
-                <label for="comment-text">
-                  댓글
-                </label>
-
-                <textarea
-                  id="comment-text"
-                  maxlength="300"
-                  rows="3"
-                  placeholder="감상을 남겨주세요"
-                  required
-                ></textarea>
-
-                <button
-                  type="submit"
-                  class="comment-submit"
-                >
-                  등록하기
-                </button>
-
-              </form>
-
-
-              <!-- COMMENT LIST -->
-              <div class="comment-list-header">
-                댓글 <span id="comment-list-count">0</span>
-              </div>
-
-              <div id="comment-list">
-                <p class="no-comments">
-                  아직 댓글이 없습니다.
-                </p>
-              </div>
 
             </div>
 
@@ -289,7 +231,6 @@
           aria-expanded="false"
           aria-controls="lyrics-content"
         >
-
           <span class="menu-number">03</span>
 
           <span class="menu-text">
@@ -300,9 +241,7 @@
           <span class="arrow-circle" aria-hidden="true">
             <span class="arrow-icon">↗</span>
           </span>
-
         </button>
-
 
         <div id="lyrics-content" class="accordion-content" hidden>
 
@@ -367,7 +306,6 @@
           aria-expanded="false"
           aria-controls="thanks-content"
         >
-
           <span class="menu-number">04</span>
 
           <span class="menu-text">
@@ -378,9 +316,7 @@
           <span class="arrow-circle" aria-hidden="true">
             <span class="arrow-icon">↗</span>
           </span>
-
         </button>
-
 
         <div id="thanks-content" class="accordion-content" hidden>
 
@@ -399,8 +335,7 @@
     </section>
 
 
-    <!-- AUDIO -->
-    <!-- 아코디언 밖에 있어 메뉴를 닫아도 재생 유지 -->
+    <!-- AUDIO: 메뉴 밖에 두어 재생 유지 -->
     <audio id="audio" preload="metadata">
       <source src="assets/song.mp3" type="audio/mpeg">
     </audio>
@@ -412,6 +347,77 @@
     </footer>
 
   </main>
+
+
+  <!-- COMMENT MODAL: 별도의 팝업 -->
+  <div
+    id="comment-panel"
+    class="comment-panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="comment-modal-title"
+    hidden
+  >
+
+    <div class="comment-modal-card" tabindex="-1">
+
+      <div class="comment-modal-header">
+
+        <div>
+          <h2 id="comment-modal-title">Comments</h2>
+          <p class="modal-subtitle">잠수 · 댓글 <span id="comment-list-count">0</span></p>
+        </div>
+
+        <button
+          id="comment-close"
+          class="comment-close"
+          type="button"
+          aria-label="댓글창 닫기"
+        >×</button>
+
+      </div>
+
+
+      <!-- COMMENT FORM -->
+      <form id="comment-form">
+
+        <label for="comment-name">닉네임</label>
+
+        <input
+          id="comment-name"
+          type="text"
+          maxlength="20"
+          placeholder="닉네임을 입력해주세요"
+          required
+        >
+
+        <label for="comment-text">댓글</label>
+
+        <textarea
+          id="comment-text"
+          maxlength="300"
+          rows="3"
+          placeholder="감상을 남겨주세요"
+          required
+        ></textarea>
+
+        <button
+          type="submit"
+          class="comment-submit"
+        >등록하기</button>
+
+      </form>
+
+      <div class="comment-list-header">
+        남겨진 이야기
+      </div>
+
+      <div id="comment-list" aria-live="polite">
+        <p class="no-comments">아직 댓글이 없습니다.</p>
+      </div>
+
+    </div>
+  </div>
 
 </body>
 </html>

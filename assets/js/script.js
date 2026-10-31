@@ -1,35 +1,15 @@
 
-// ======================================
+"use strict";
+
+// ==========================================
 // PROJECT 자애법
-// MAIN SCRIPT + FIREBASE
-// ======================================
+// MAIN JAVASCRIPT
+// ==========================================
 
 
-// ======================================
-// 1. FIREBASE CONFIG
-// ======================================
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAziIz9lpVXLmjGNfp98Vk5rQiVaG7o7SM",
-  authDomain: "project-kj-ab7ca.firebaseapp.com",
-  databaseURL: "https://project-kj-ab7ca-default-rtdb.firebaseio.com",
-  projectId: "project-kj-ab7ca",
-  storageBucket: "project-kj-ab7ca.firebasestorage.app",
-  messagingSenderId: "337752253562",
-  appId: "1:337752253562:web:e072f65e547607d0cf87c3"
-};
-
-firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
-const database = firebase.database();
-
-let currentUser = null;
-
-
-// ======================================
-// 2. ACCORDION MENU
-// ======================================
+// ==========================================
+// 1. ACCORDION MENU
+// ==========================================
 
 const accordionButtons =
   document.querySelectorAll(".accordion-button");
@@ -38,42 +18,64 @@ accordionButtons.forEach((button) => {
 
   button.addEventListener("click", () => {
 
-    const contentId = button.getAttribute("aria-controls");
-    const content = document.getElementById(contentId);
+    const contentId =
+      button.getAttribute("aria-controls");
+
+    const content =
+      document.getElementById(contentId);
+
+    if (!content) return;
 
     const wasOpen =
       button.getAttribute("aria-expanded") === "true";
 
     accordionButtons.forEach((otherButton) => {
 
-      const otherContent = document.getElementById(
-        otherButton.getAttribute("aria-controls")
+      const otherId =
+        otherButton.getAttribute("aria-controls");
+
+      const otherContent =
+        document.getElementById(otherId);
+
+      otherButton.setAttribute(
+        "aria-expanded",
+        "false"
       );
 
-      otherButton.setAttribute("aria-expanded", "false");
-      otherContent.hidden = true;
+      if (otherContent) {
+        otherContent.hidden = true;
+      }
 
     });
 
     if (!wasOpen) {
-      button.setAttribute("aria-expanded", "true");
-      content.hidden = false;
-    }
 
-    // 메뉴가 닫혀도 음악은 계속 재생
+      button.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+
+      content.hidden = false;
+
+    }
 
   });
 
 });
 
 
-// ======================================
-// 3. MUSIC PLAYER
-// ======================================
+// ==========================================
+// 2. MUSIC PLAYER
+// ==========================================
 
-const audio = document.getElementById("audio");
-const playButton = document.getElementById("play-button");
-const progress = document.getElementById("progress");
+const audio =
+  document.getElementById("audio");
+
+const playButton =
+  document.getElementById("play-button");
+
+const progress =
+  document.getElementById("progress");
 
 const currentTimeText =
   document.getElementById("current-time");
@@ -81,22 +83,34 @@ const currentTimeText =
 const totalTimeText =
   document.getElementById("total-time");
 
+
 function formatTime(seconds) {
 
-  if (!Number.isFinite(seconds)) return "0:00";
+  if (!Number.isFinite(seconds)) {
+    return "0:00";
+  }
 
-  const minutes = Math.floor(seconds / 60);
-  const remaining = Math.floor(seconds % 60);
+  const minutes =
+    Math.floor(seconds / 60);
 
-  return `${minutes}:${String(remaining).padStart(2, "0")}`;
+  const remainingSeconds =
+    Math.floor(seconds % 60);
+
+  return (
+    minutes +
+    ":" +
+    String(remainingSeconds).padStart(2, "0")
+  );
 
 }
+
 
 function updatePlayButton() {
 
   const isPlaying = !audio.paused;
 
-  playButton.textContent = isPlaying ? "Ⅱ" : "▶";
+  playButton.textContent =
+    isPlaying ? "Ⅱ" : "▶";
 
   playButton.setAttribute(
     "aria-label",
@@ -105,30 +119,19 @@ function updatePlayButton() {
 
 }
 
-playButton.addEventListener("click", async () => {
 
-  if (audio.paused) {
+function updateProgress() {
 
-    try {
-      await audio.play();
-    } catch (error) {
-      console.error("음악 재생 오류:", error);
-      alert("음원 파일을 확인해주세요.");
-    }
+  currentTimeText.textContent =
+    formatTime(audio.currentTime);
 
-  } else {
-    audio.pause();
-  }
+  if (
+    Number.isFinite(audio.duration) &&
+    audio.duration > 0
+  ) {
 
-});
-
-function updateProgressDisplay() {
-
-  currentTimeText.textContent = formatTime(audio.currentTime);
-
-  if (Number.isFinite(audio.duration) && audio.duration > 0) {
-
-    totalTimeText.textContent = formatTime(audio.duration);
+    totalTimeText.textContent =
+      formatTime(audio.duration);
 
     const percentage =
       (audio.currentTime / audio.duration) * 100;
@@ -137,117 +140,151 @@ function updateProgressDisplay() {
 
     progress.style.setProperty(
       "--progress",
-      `${percentage}%`
+      percentage + "%"
     );
 
   }
 
 }
 
-audio.addEventListener("loadedmetadata", updateProgressDisplay);
-audio.addEventListener("durationchange", updateProgressDisplay);
-audio.addEventListener("timeupdate", updateProgressDisplay);
-audio.addEventListener("seeked", updateProgressDisplay);
 
-audio.addEventListener("play", updatePlayButton);
-audio.addEventListener("pause", updatePlayButton);
+playButton.addEventListener("click", async () => {
 
-progress.addEventListener("input", () => {
+  if (audio.paused) {
 
-  if (Number.isFinite(audio.duration) && audio.duration > 0) {
+    try {
 
-    const percentage = Number(progress.value);
+      await audio.play();
 
-    audio.currentTime =
-      (percentage / 100) * audio.duration;
+    } catch (error) {
 
-    updateProgressDisplay();
+      console.error("음악 재생 오류:", error);
+
+      alert(
+        "음원을 재생할 수 없습니다. " +
+        "assets/song.mp3 파일을 확인해주세요."
+      );
+
+    }
+
+  } else {
+
+    audio.pause();
 
   }
 
 });
 
+
+audio.addEventListener(
+  "loadedmetadata",
+  updateProgress
+);
+
+audio.addEventListener(
+  "durationchange",
+  updateProgress
+);
+
+audio.addEventListener(
+  "timeupdate",
+  updateProgress
+);
+
+audio.addEventListener(
+  "seeked",
+  updateProgress
+);
+
+audio.addEventListener(
+  "play",
+  updatePlayButton
+);
+
+audio.addEventListener(
+  "pause",
+  updatePlayButton
+);
+
+
+progress.addEventListener("input", () => {
+
+  if (
+    Number.isFinite(audio.duration) &&
+    audio.duration > 0
+  ) {
+
+    const percentage =
+      Number(progress.value);
+
+    audio.currentTime =
+      audio.duration * (percentage / 100);
+
+    updateProgress();
+
+  }
+
+});
+
+
 audio.addEventListener("ended", () => {
 
   audio.currentTime = 0;
-  progress.value = 0;
-  progress.style.setProperty("--progress", "0%");
 
-  updateProgressDisplay();
+  progress.value = 0;
+
+  progress.style.setProperty(
+    "--progress",
+    "0%"
+  );
+
+  updateProgress();
   updatePlayButton();
 
 });
 
 
-// ======================================
-// 4. SOCIAL ELEMENTS
-// ======================================
+// ==========================================
+// 3. COMMENT POPUP
+// ==========================================
 
-const likeButton = document.getElementById("like-button");
-const likeCount = document.getElementById("like-count");
+const commentToggle =
+  document.getElementById("comment-toggle");
 
-const commentToggle = document.getElementById("comment-toggle");
-const commentPanel = document.getElementById("comment-panel");
+const commentPanel =
+  document.getElementById("comment-panel");
 
-const commentForm = document.getElementById("comment-form");
-const commentName = document.getElementById("comment-name");
-const commentText = document.getElementById("comment-text");
+const commentClose =
+  document.getElementById("comment-close");
 
-const commentCount = document.getElementById("comment-count");
-const commentListCount = document.getElementById("comment-list-count");
-const commentList = document.getElementById("comment-list");
+const commentCard =
+  document.querySelector(".comment-modal-card");
 
 
-// ======================================
-// 5. COMMENT POPUP
-// ======================================
-
-const modalCard = document.createElement("div");
-modalCard.className = "comment-modal-card";
-
-const modalHeader = document.createElement("div");
-modalHeader.className = "comment-modal-header";
-
-const modalTitle = document.createElement("h3");
-modalTitle.className = "comment-modal-title";
-modalTitle.textContent = "Comments";
-
-const closeButton = document.createElement("button");
-closeButton.className = "comment-close";
-closeButton.type = "button";
-closeButton.textContent = "×";
-closeButton.setAttribute("aria-label", "댓글창 닫기");
-
-modalHeader.append(modalTitle, closeButton);
-
-while (commentPanel.firstChild) {
-  modalCard.appendChild(commentPanel.firstChild);
-}
-
-modalCard.prepend(modalHeader);
-commentPanel.appendChild(modalCard);
-
-document.body.appendChild(commentPanel);
-
-commentPanel.setAttribute("role", "dialog");
-commentPanel.setAttribute("aria-modal", "true");
-commentPanel.setAttribute("aria-label", "댓글");
-
-function openCommentModal() {
+function openComments() {
 
   commentPanel.hidden = false;
-  commentToggle.setAttribute("aria-expanded", "true");
+
+  commentToggle.setAttribute(
+    "aria-expanded",
+    "true"
+  );
 
   document.body.style.overflow = "hidden";
 
-  closeButton.focus();
+  commentClose.focus();
 
 }
 
-function closeCommentModal() {
+
+function closeComments() {
 
   commentPanel.hidden = true;
-  commentToggle.setAttribute("aria-expanded", "false");
+
+  commentToggle.setAttribute(
+    "aria-expanded",
+    "false"
+  );
 
   document.body.style.overflow = "";
 
@@ -255,56 +292,75 @@ function closeCommentModal() {
 
 }
 
+
 commentToggle.addEventListener("click", () => {
 
   if (commentPanel.hidden) {
-    openCommentModal();
+    openComments();
   } else {
-    closeCommentModal();
+    closeComments();
   }
 
 });
 
-closeButton.addEventListener("click", closeCommentModal);
+
+commentClose.addEventListener(
+  "click",
+  closeComments
+);
+
 
 commentPanel.addEventListener("click", (event) => {
 
   if (event.target === commentPanel) {
-    closeCommentModal();
+    closeComments();
   }
 
 });
+
 
 document.addEventListener("keydown", (event) => {
 
-  if (event.key === "Escape" && !commentPanel.hidden) {
-    closeCommentModal();
+  if (commentPanel.hidden) return;
+
+  if (event.key === "Escape") {
+
+    closeComments();
+    return;
+
   }
 
-});
+  if (event.key === "Tab") {
 
+    const focusable = Array.from(
+      commentCard.querySelectorAll(
+        "button:not(:disabled), " +
+        "input:not(:disabled), " +
+        "textarea:not(:disabled)"
+      )
+    );
 
-// ======================================
-// 6. FIREBASE AUTHENTICATION
-// ======================================
+    if (focusable.length === 0) return;
 
-auth.onAuthStateChanged(async (user) => {
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
 
-  if (user) {
+    if (
+      event.shiftKey &&
+      document.activeElement === first
+    ) {
 
-    currentUser = user;
+      event.preventDefault();
+      last.focus();
 
-    await checkMyLike();
+    } else if (
+      !event.shiftKey &&
+      document.activeElement === last
+    ) {
 
-  } else {
+      event.preventDefault();
+      first.focus();
 
-    currentUser = null;
-
-    try {
-      await auth.signInAnonymously();
-    } catch (error) {
-      console.error("익명 인증 실패:", error);
-      console.warn("댓글 및 좋아요를 사용할 수 없습니다.");
     }
 
   }
@@ -312,86 +368,491 @@ auth.onAuthStateChanged(async (user) => {
 });
 
 
-// ======================================
-// 7. LIKES
-// ======================================
+// ==========================================
+// 4. LIKE AND COMMENT ELEMENTS
+// ==========================================
+
+const likeButton =
+  document.getElementById("like-button");
+
+const likeCount =
+  document.getElementById("like-count");
+
+const commentCount =
+  document.getElementById("comment-count");
+
+const commentListCount =
+  document.getElementById("comment-list-count");
+
+const commentList =
+  document.getElementById("comment-list");
+
+const commentForm =
+  document.getElementById("comment-form");
+
+const commentName =
+  document.getElementById("comment-name");
+
+const commentText =
+  document.getElementById("comment-text");
+
+const submitButton =
+  commentForm.querySelector(".comment-submit");
+
+
+// ==========================================
+// 5. SHARED STATE
+// ==========================================
+
+let comments = [];
 
 let myLiked = false;
 
-function updateLikeButton() {
+let firebaseReady = false;
 
-  likeButton.querySelector(".heart-symbol").textContent =
-    myLiked ? "♥" : "♡";
+let currentUser = null;
+
+let database = null;
+
+let auth = null;
+
+let likeBusy = false;
+
+
+// ==========================================
+// 6. DISPLAY FUNCTIONS
+// ==========================================
+
+function updateLikeButton() {
 
   likeButton.setAttribute(
     "aria-pressed",
     String(myLiked)
   );
 
+  likeButton.setAttribute(
+    "aria-label",
+    myLiked ? "좋아요 취소" : "좋아요"
+  );
+
 }
 
-// 전체 좋아요 수 실시간 확인
-database.ref("likes").on("value", (snapshot) => {
 
-  likeCount.textContent = snapshot.numChildren();
+function renderComments() {
 
-}, (error) => {
+  commentList.replaceChildren();
 
-  console.error("좋아요 불러오기 오류:", error);
+  commentCount.textContent =
+    comments.length;
 
-});
+  commentListCount.textContent =
+    comments.length;
 
-// 내가 이미 눌렀는지 확인
-async function checkMyLike() {
+  if (comments.length === 0) {
 
-  if (!currentUser) return;
+    const empty =
+      document.createElement("p");
+
+    empty.className = "no-comments";
+
+    empty.textContent =
+      "아직 댓글이 없습니다.";
+
+    commentList.appendChild(empty);
+
+    return;
+
+  }
+
+  const sorted = [...comments].sort((a, b) => {
+
+    return (
+      (b.createdAt || 0) -
+      (a.createdAt || 0)
+    );
+
+  });
+
+  sorted.forEach((item) => {
+
+    const entry =
+      document.createElement("div");
+
+    entry.className = "comment-entry";
+
+    const name =
+      document.createElement("strong");
+
+    name.textContent =
+      item.name || "익명";
+
+    const body =
+      document.createElement("p");
+
+    body.textContent =
+      item.text || "";
+
+    entry.append(name, body);
+
+    commentList.appendChild(entry);
+
+  });
+
+}
+
+
+function showConnectionError() {
+
+  alert(
+    "서버에 아직 연결되지 않았습니다.\n" +
+    "잠시 후 다시 시도해주세요.\n" +
+    "문제가 계속되면 GitHub Pages에서 확인해주세요."
+  );
+
+}
+
+
+// ==========================================
+// 7. FIREBASE CONFIG
+// ==========================================
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyAziIz9lpVXLmjGNfp98Vk5rQiVaG7o7SM",
+
+  authDomain:
+    "project-kj-ab7ca.firebaseapp.com",
+
+  databaseURL:
+    "https://project-kj-ab7ca-default-rtdb.firebaseio.com",
+
+  projectId:
+    "project-kj-ab7ca",
+
+  storageBucket:
+    "project-kj-ab7ca.firebasestorage.app",
+
+  messagingSenderId:
+    "337752253562",
+
+  appId:
+    "1:337752253562:web:e072f65e547607d0cf87c3"
+
+};
+
+
+// ==========================================
+// 8. FIREBASE INITIALIZATION
+// ==========================================
+
+function initializeFirebase() {
+
+  // Firebase가 로드되지 않아도
+  // 메뉴와 음악 기능에는 영향을 주지 않음.
+
+  if (typeof firebase === "undefined") {
+
+    console.warn(
+      "Firebase 라이브러리가 로드되지 않았습니다."
+    );
+
+    return;
+
+  }
 
   try {
 
-    const snapshot = await database
-      .ref("likes/" + currentUser.uid)
-      .once("value");
+    if (!firebase.apps.length) {
 
-    myLiked = snapshot.val() === true;
+      firebase.initializeApp(firebaseConfig);
 
-    updateLikeButton();
+    }
+
+    auth = firebase.auth();
+
+    database = firebase.database();
+
+    firebaseReady = true;
+
+
+    // --------------------------------------
+    // COMMENTS: REALTIME READ
+    // --------------------------------------
+
+    database.ref("comments").on(
+      "value",
+
+      (snapshot) => {
+
+        comments = [];
+
+        snapshot.forEach((child) => {
+
+          const item = child.val();
+
+          if (item) {
+            comments.push(item);
+          }
+
+        });
+
+        renderComments();
+
+      },
+
+      (error) => {
+
+        console.error(
+          "댓글 불러오기 오류:",
+          error
+        );
+
+      }
+    );
+
+
+    // --------------------------------------
+    // LIKES: REALTIME COUNT
+    // --------------------------------------
+
+    database.ref("likes").on(
+      "value",
+
+      (snapshot) => {
+
+        likeCount.textContent =
+          snapshot.numChildren();
+
+        // Firebase 데이터 구조:
+        // likes
+        //   사용자UID1: true
+        //   사용자UID2: true
+        //
+        // 좋아요 취소 시 해당 UID 삭제
+        // 따라서 전체 숫자도 자동 감소
+
+      },
+
+      (error) => {
+
+        console.error(
+          "좋아요 불러오기 오류:",
+          error
+        );
+
+      }
+    );
+
+
+    // --------------------------------------
+    // ANONYMOUS AUTHENTICATION
+    // --------------------------------------
+
+    auth.onAuthStateChanged(async (user) => {
+
+      if (user) {
+
+        currentUser = user;
+
+        try {
+
+          const snapshot = await database
+            .ref("likes/" + user.uid)
+            .once("value");
+
+          // 인증 사용자가 바뀐 경우
+          // 이전 요청으로 상태를 덮어쓰지 않음
+          if (
+            !currentUser ||
+            currentUser.uid !== user.uid
+          ) {
+            return;
+          }
+
+          myLiked =
+            snapshot.val() === true;
+
+          updateLikeButton();
+
+        } catch (error) {
+
+          console.error(
+            "내 좋아요 확인 오류:",
+            error
+          );
+
+        }
+
+      } else {
+
+        currentUser = null;
+
+        myLiked = false;
+
+        updateLikeButton();
+
+        try {
+
+          await auth.signInAnonymously();
+
+        } catch (error) {
+
+          console.error(
+            "익명 인증 오류:",
+            error
+          );
+
+        }
+
+      }
+
+    });
 
   } catch (error) {
 
-    console.error("좋아요 확인 오류:", error);
+    firebaseReady = false;
+
+    console.error(
+      "Firebase 초기화 오류:",
+      error
+    );
 
   }
 
 }
 
-// 좋아요 등록
+
+// 모든 defer 스크립트가 실행된 후
+// Firebase 연결 시도
+
+if (document.readyState === "loading") {
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    initializeFirebase,
+    { once: true }
+  );
+
+} else {
+
+  initializeFirebase();
+
+}
+
+
+// ==========================================
+// 9. LIKE BUTTON
+// REGISTER + CANCEL
+// ==========================================
+
 likeButton.addEventListener("click", async () => {
 
-  if (!currentUser) {
-    alert("연결 중입니다. 잠시 후 다시 눌러주세요.");
+  if (
+    !firebaseReady ||
+    !database ||
+    !currentUser
+  ) {
+
+    showConnectionError();
     return;
+
   }
 
-  if (myLiked) return;
+  if (likeBusy) return;
 
+  likeBusy = true;
   likeButton.disabled = true;
 
   try {
 
-    await database
-      .ref("likes/" + currentUser.uid)
-      .set(true);
+    const userId = currentUser.uid;
 
-    myLiked = true;
-    updateLikeButton();
+    const likeRef =
+      database.ref("likes/" + userId);
+
+    // transaction을 사용하면
+    // 여러 요청이 동시에 와도 현재 값을
+    // 확인하고 안전하게 변경할 수 있음.
+
+    const result = await likeRef.transaction(
+      (currentValue) => {
+
+        if (currentValue === true) {
+
+          // 좋아요가 있으면 삭제 = 취소
+          return null;
+
+        }
+
+        // 좋아요가 없으면 등록
+        return true;
+
+      }
+    );
+
+    if (result.committed) {
+
+      myLiked =
+        result.snapshot.val() === true;
+
+      updateLikeButton();
+
+    } else {
+
+      // 트랜잭션이 완료되지 않았다면
+      // 실제 서버 상태 다시 확인
+
+      const snapshot =
+        await likeRef.once("value");
+
+      myLiked =
+        snapshot.val() === true;
+
+      updateLikeButton();
+
+    }
 
   } catch (error) {
 
-    console.error("좋아요 등록 오류:", error);
-    alert("좋아요를 저장하지 못했습니다.");
+    console.error(
+      "좋아요 변경 오류:",
+      error
+    );
+
+    alert(
+      "좋아요 상태를 변경하지 못했습니다.\n" +
+      "Firebase 규칙을 확인해주세요."
+    );
+
+    // 실패했을 때 실제 저장된 상태 확인
+    try {
+
+      if (currentUser) {
+
+        const snapshot = await database
+          .ref("likes/" + currentUser.uid)
+          .once("value");
+
+        myLiked =
+          snapshot.val() === true;
+
+        updateLikeButton();
+
+      }
+
+    } catch (readError) {
+
+      console.error(
+        "좋아요 상태 재확인 오류:",
+        readError
+      );
+
+    }
 
   } finally {
 
+    likeBusy = false;
     likeButton.disabled = false;
 
   }
@@ -399,103 +860,59 @@ likeButton.addEventListener("click", async () => {
 });
 
 
-// ======================================
-// 8. COMMENTS
-// ======================================
+// ==========================================
+// 10. COMMENT SUBMIT
+// ==========================================
 
-let comments = [];
-
-// 댓글 표시
-function renderComments() {
-
-  commentList.replaceChildren();
-
-  commentCount.textContent = comments.length;
-  commentListCount.textContent = comments.length;
-
-  if (comments.length === 0) {
-
-    const empty = document.createElement("p");
-    empty.className = "no-comments";
-    empty.textContent = "아직 댓글이 없습니다.";
-
-    commentList.appendChild(empty);
-    return;
-
-  }
-
-  // 최신 댓글부터 표시
-  const sortedComments = [...comments].sort((a, b) => {
-    return (b.createdAt || 0) - (a.createdAt || 0);
-  });
-
-  sortedComments.forEach((item) => {
-
-    const entry = document.createElement("div");
-    entry.className = "comment-entry";
-
-    const name = document.createElement("strong");
-    name.textContent = item.name || "익명";
-
-    const text = document.createElement("p");
-    text.textContent = item.text || "";
-
-    entry.append(name, text);
-    commentList.appendChild(entry);
-
-  });
-
-}
-
-// Firebase에서 모든 댓글 불러오기
-database.ref("comments").on("value", (snapshot) => {
-
-  comments = [];
-
-  snapshot.forEach((child) => {
-
-    const item = child.val();
-
-    if (item) {
-      comments.push(item);
-    }
-
-  });
-
-  renderComments();
-
-}, (error) => {
-
-  console.error("댓글 불러오기 오류:", error);
-
-});
-
-
-// 댓글 등록
 commentForm.addEventListener("submit", async (event) => {
 
   event.preventDefault();
 
-  if (!currentUser) {
-    alert("연결 중입니다. 잠시 후 다시 등록해주세요.");
+  if (
+    !firebaseReady ||
+    !database ||
+    !currentUser
+  ) {
+
+    showConnectionError();
     return;
+
   }
 
-  const name = commentName.value.trim();
-  const text = commentText.value.trim();
+  const name =
+    commentName.value.trim();
 
-  if (!name || !text) return;
+  const text =
+    commentText.value.trim();
 
-  if (name.length > 20 || text.length > 300) {
-    alert("닉네임 또는 댓글이 너무 깁니다.");
+  if (!name || !text) {
+
+    alert(
+      "닉네임과 댓글 내용을 모두 입력해주세요."
+    );
+
     return;
+
   }
 
-  const submitButton =
-    commentForm.querySelector(".comment-submit");
+  if (
+    name.length > 20 ||
+    text.length > 300
+  ) {
+
+    alert(
+      "닉네임은 최대 20자, " +
+      "댓글은 최대 300자까지 입력할 수 있습니다."
+    );
+
+    return;
+
+  }
 
   submitButton.disabled = true;
-  submitButton.textContent = "등록 중...";
+
+  submitButton.textContent =
+    "등록 중...";
 
   try {
 
@@ -505,24 +922,51 @@ commentForm.addEventListener("submit", async (event) => {
     await newCommentRef.set({
 
       name: name,
+
       text: text,
+
       uid: currentUser.uid,
-      createdAt: firebase.database.ServerValue.TIMESTAMP
+
+      createdAt:
+        firebase.database.ServerValue.TIMESTAMP
 
     });
 
     commentForm.reset();
 
+    // 댓글 목록은 Firebase의 실시간 감지로
+    // 모든 방문객에게 자동 업데이트됨.
+
   } catch (error) {
 
-    console.error("댓글 등록 오류:", error);
-    alert("댓글을 저장하지 못했습니다. 연결 상태를 확인해주세요.");
+    console.error(
+      "댓글 등록 오류:",
+      error
+    );
+
+    alert(
+      "댓글을 저장하지 못했습니다.\n" +
+      "인터넷 연결과 Firebase 규칙을 확인해주세요."
+    );
 
   } finally {
 
     submitButton.disabled = false;
-    submitButton.textContent = "등록하기";
+
+    submitButton.textContent =
+      "등록하기";
 
   }
 
 });
+
+
+// ==========================================
+// 11. INITIAL DISPLAY
+// ==========================================
+
+updateLikeButton();
+
+renderComments();
+
+updatePlayButton();
