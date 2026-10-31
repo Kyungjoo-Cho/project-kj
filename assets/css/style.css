@@ -458,3 +458,72 @@ button {
     transition: none;
   }
 }
+
+
+/* ==============================
+   DESIGN REFINEMENT
+   Project 자애법
+============================== */
+
+
+/* 01. 메인 프로젝트 제목 굵게 */
+.intro h1 {
+  font-weight: 700;
+}
+
+
+/* 02. 제목과 부제 사이 간격 줄이기 */
+.subtitle {
+  margin-top: 5px;
+}
+
+
+/* 03. 메뉴 숫자와 한글 제목 높이 맞추기 */
+.menu-number {
+  align-self: flex-start;
+  padding-top: 2px;
+  line-height: 1.2;
+}
+
+.menu-text strong {
+  line-height: 1.2;
+}
+
+
+/* 04. 원형 화살표 중앙 정렬 */
+.arrow-circle {
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.arrow-icon {
+  display: block;
+  width: 100%;
+  line-height: 1;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 19px;
+  transform-origin: center;
+}
+
+/* 열린 상태에서 화살표 방향 전환 */
+.accordion-button[aria-expanded="true"] .arrow-icon {
+  transform: rotate(135deg);
+}
+
+
+/* 곡 제목 + DEMO 표시 */
+.track-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+}
+
+.demo-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #999999;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
