@@ -1,11 +1,19 @@
 
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 
-/* RESET */
+
+/* ======================
+   RESET
+====================== */
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -16,7 +24,8 @@ body {
 }
 
 button,
-input {
+input,
+textarea {
   font: inherit;
 }
 
@@ -29,7 +38,10 @@ button {
 }
 
 
-/* MAIN */
+/* ======================
+   MAIN LAYOUT
+====================== */
+
 .container {
   width: 100%;
   max-width: 430px;
@@ -43,12 +55,15 @@ button {
 }
 
 
-/* HEADER */
+/* ======================
+   HEADER
+====================== */
+
 .header {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   gap: 12px;
 
   padding-bottom: 20px;
@@ -79,19 +94,23 @@ button {
   align-items: flex-end;
   gap: 4px;
 
+  margin-left: auto;
+
   font-size: 9px;
   font-weight: 400;
-  letter-spacing: 0.5px;
   line-height: 1.4;
+  letter-spacing: 0.5px;
   color: #888888;
+
   text-align: right;
   white-space: nowrap;
-
-  margin-left: auto;
 }
 
 
-/* INTRO */
+/* ======================
+   INTRO
+====================== */
+
 .intro {
   padding: 100px 0 90px;
 }
@@ -104,23 +123,29 @@ button {
 
 .intro h1 {
   margin-top: 16px;
+
   font-size: clamp(30px, 9vw, 38px);
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: -1.5px;
   line-height: 1.2;
   word-break: keep-all;
 }
 
 .subtitle {
-  margin-top: 16px;
+  margin-top: 5px;
+
   font-size: 12px;
-  line-height: 1.8;
+  font-weight: 400;
+  line-height: 1.6;
   color: #888888;
   word-break: keep-all;
 }
 
 
-/* ACCORDION */
+/* ======================
+   ACCORDION
+====================== */
+
 .accordion {
   border-top: 1px solid #e5e5e5;
 }
@@ -132,13 +157,15 @@ button {
 .accordion-button {
   width: 100%;
   min-height: 88px;
+
   display: flex;
   align-items: center;
   gap: 18px;
 
   padding: 16px 0;
-  border: none;
+
   background: transparent;
+  border: none;
   color: #171717;
   text-align: left;
 }
@@ -146,10 +173,13 @@ button {
 .menu-number {
   width: 18px;
   flex-shrink: 0;
-  align-self: flex-start;
-  padding-top: 3px;
 
-  font-size: 10px;
+  align-self: flex-start;
+  padding-top: 1px;
+
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.3;
   color: #aaaaaa;
 }
 
@@ -163,6 +193,7 @@ button {
 .menu-text strong {
   font-size: 15px;
   font-weight: 500;
+  line-height: 1.3;
 }
 
 .menu-text small {
@@ -175,18 +206,22 @@ button {
 }
 
 
-/* CIRCULAR ARROW BUTTON */
+/* ======================
+   ROUND ARROW BUTTON
+====================== */
+
 .arrow-circle {
   width: 38px;
   height: 38px;
   flex-shrink: 0;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
 
+  padding: 0;
   border: 1px solid #171717;
   border-radius: 50%;
+
   background: #ffffff;
   color: #171717;
 
@@ -197,26 +232,19 @@ button {
 }
 
 .arrow-icon {
-  font-size: 20px;
-  line-height: 1;
   display: block;
+  width: 100%;
+
+  font-family: Arial, sans-serif;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+
+  transform-origin: center;
   transition: transform 0.3s ease;
 }
 
-/* 마우스를 올렸을 때 */
-@media (hover: hover) {
-  .accordion-button:hover .arrow-circle {
-    background: #171717;
-    color: #ffffff;
-  }
-}
-
-/* 터치할 때 */
-.accordion-button:active .arrow-circle {
-  transform: scale(0.92);
-}
-
-/* 메뉴가 열린 상태 */
 .accordion-button[aria-expanded="true"] .arrow-circle {
   background: #171717;
   color: #ffffff;
@@ -226,8 +254,22 @@ button {
   transform: rotate(135deg);
 }
 
+.accordion-button:active .arrow-circle {
+  transform: scale(0.94);
+}
 
-/* ACCORDION CONTENT */
+@media (hover: hover) {
+  .accordion-button:hover .arrow-circle {
+    background: #171717;
+    color: #ffffff;
+  }
+}
+
+
+/* ======================
+   ACCORDION CONTENT
+====================== */
+
 .accordion-content {
   padding: 12px 0 48px 36px;
   animation: contentFadeIn 0.3s ease both;
@@ -246,29 +288,40 @@ button {
 }
 
 
+/* ======================
+   ARTIST NOTE
+====================== */
 
-/* ARTIST'S NOTE */
 .note-text {
   font-size: 13px;
   font-weight: 400;
   line-height: 2.05;
+
   white-space: pre-line;
   overflow-wrap: anywhere;
   word-break: keep-all;
 }
 
-/* LYRICS */
+
+/* ======================
+   LYRICS
+====================== */
+
 .lyrics-text {
   font-size: 14px;
   font-weight: 400;
   line-height: 1.9;
+
   white-space: pre-line;
   overflow-wrap: anywhere;
   word-break: keep-all;
 }
 
 
-/* MUSIC PLAYER */
+/* ======================
+   MUSIC PLAYER
+====================== */
+
 .player {
   border: 1px solid #e5e5e5;
   padding: 28px 20px;
@@ -276,27 +329,50 @@ button {
 
 .track-label {
   font-size: 9px;
+  font-weight: 400;
   letter-spacing: 1px;
   color: #999999;
+
   margin-bottom: 14px;
 }
 
-.track-info h3 {
+.track-title-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.track-title-row h3 {
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.5px;
 }
 
+.demo-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: #999999;
+  white-space: nowrap;
+}
+
 .track-artist {
-  margin-top: 8px;
   font-size: 12px;
   color: #999999;
+  margin-top: 8px;
 }
+
+
+/* ======================
+   PLAYER CONTROLS
+====================== */
 
 .player-controls {
   display: flex;
   align-items: center;
   gap: 16px;
+
   margin-top: 42px;
 }
 
@@ -311,6 +387,7 @@ button {
 
   border: none;
   border-radius: 50%;
+
   background: #171717;
   color: #ffffff;
   font-size: 14px;
@@ -329,7 +406,7 @@ button {
 
   appearance: none;
   -webkit-appearance: none;
-
+  border: none;
   border-radius: 0;
 
   background: linear-gradient(
@@ -350,6 +427,7 @@ button {
   width: 12px;
   height: 12px;
   border-radius: 50%;
+
   background: #171717;
 }
 
@@ -366,28 +444,214 @@ button {
   justify-content: space-between;
   margin-top: 13px;
 
-  font-size: 10px;
+  font-size: 11px;
   color: #999999;
   font-variant-numeric: tabular-nums;
 }
 
 
-/* THANKS */
-.thanks-intro {
-  font-size: 13px;
-  line-height: 2;
-  color: #888888;
-  white-space: pre-line;
-  margin-bottom: 28px;
+/* ======================
+   SOCIAL ACTIONS
+====================== */
+
+.social-actions {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+
+  margin-top: 30px;
+  padding-top: 20px;
+
+  border-top: 1px solid #e8e8e8;
 }
+
+.social-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  min-height: 32px;
+  padding: 4px 0;
+
+  border: none;
+  background: transparent;
+  color: #171717;
+
+  font-size: 13px;
+  font-weight: 400;
+}
+
+/* Heart */
+.heart-symbol {
+  display: block;
+  font-size: 27px;
+  line-height: 1;
+}
+
+/* Speech bubble */
+.comment-icon {
+  display: block;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.social-button:focus-visible {
+  outline: 2px solid #171717;
+  outline-offset: 5px;
+}
+
+
+/* ======================
+   COMMENT PANEL
+====================== */
+
+.comment-panel {
+  margin-top: 18px;
+  padding-top: 24px;
+  border-top: 1px solid #e8e8e8;
+
+  animation: contentFadeIn 0.25s ease both;
+}
+
+.comment-panel h4 {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 22px;
+}
+
+
+/* ======================
+   COMMENT FORM
+====================== */
+
+#comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#comment-form label {
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 400;
+  color: #777777;
+}
+
+#comment-form input,
+#comment-form textarea {
+  width: 100%;
+  padding: 13px 12px;
+
+  border: 1px solid #e5e5e5;
+  border-radius: 0;
+
+  background: #ffffff;
+  color: #171717;
+
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.6;
+
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#comment-form input::placeholder,
+#comment-form textarea::placeholder {
+  color: #aaaaaa;
+}
+
+#comment-form input:focus,
+#comment-form textarea:focus {
+  border-color: #171717;
+}
+
+#comment-form textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.comment-submit {
+  align-self: flex-end;
+
+  margin-top: 12px;
+  padding: 11px 18px;
+
+  border: none;
+  border-radius: 0;
+
+  background: #171717;
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.comment-submit:active {
+  opacity: 0.75;
+}
+
+
+/* ======================
+   COMMENT LIST
+====================== */
+
+.comment-list-header {
+  margin-top: 12px;
+  padding: 24px 0 12px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  border-bottom: 1px solid #eeeeee;
+}
+
+.no-comments {
+  padding: 20px 0;
+  font-size: 12px;
+  color: #999999;
+}
+
+.comment-entry {
+  padding: 16px 0;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.comment-entry strong {
+  display: block;
+  margin-bottom: 7px;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.comment-entry p {
+  font-size: 13px;
+  line-height: 1.7;
+
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+
+/* ======================
+   ACKNOWLEDGEMENTS
+====================== */
 
 .thanks-list {
   list-style: none;
 }
 
 .thanks-list li {
-  font-size: 14px;
   padding: 15px 0;
+
+  font-size: 14px;
+  line-height: 1.7;
+  word-break: keep-all;
+
   border-bottom: 1px solid #eeeeee;
 }
 
@@ -396,11 +660,14 @@ button {
 }
 
 
-/* FOOTER */
+/* ======================
+   FOOTER
+====================== */
+
 .footer {
   display: flex;
-  justify-content: space-between;
-  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
 
   margin-top: auto;
   padding-top: 60px;
@@ -410,11 +677,11 @@ button {
 }
 
 
-/* MOBILE */
+/* ======================
+   MOBILE
+====================== */
+
 @media (max-width: 400px) {
-  .header {
-    align-items: flex-start;
-  }
 
   .artist-name {
     gap: 8px;
@@ -431,9 +698,11 @@ button {
   .intro {
     padding: 85px 0 75px;
   }
+
 }
 
 @media (max-width: 360px) {
+
   .container {
     padding-left: 20px;
     padding-right: 20px;
@@ -446,10 +715,31 @@ button {
   .player {
     padding: 24px 14px;
   }
+
+  .player-controls {
+    gap: 12px;
+  }
+
+  .play-button {
+    width: 40px;
+    height: 40px;
+  }
+
 }
 
+
+/* ======================
+   REDUCED MOTION
+====================== */
+
 @media (prefers-reduced-motion: reduce) {
-  .accordion-content {
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  .accordion-content,
+  .comment-panel {
     animation: none;
   }
 
@@ -457,73 +747,91 @@ button {
   .arrow-icon {
     transition: none;
   }
+
 }
 
 
-/* ==============================
-   DESIGN REFINEMENT
-   Project 자애법
-============================== */
+/* =========================
+   COMMENT POPUP
+========================= */
 
+.comment-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
 
-/* 01. 메인 프로젝트 제목 굵게 */
-.intro h1 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  padding: 20px;
+  margin: 0;
+  border: none;
+
+  background: rgba(0, 0, 0, 0.45);
+  overflow-y: auto;
+}
+
+.comment-modal-card {
+  width: 100%;
+  max-width: 430px;
+  max-height: calc(100dvh - 40px);
+
+  margin: auto;
+  padding: 28px 24px;
+
+  background: #ffffff;
+  color: #171717;
+
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  animation: contentFadeIn 0.25s ease;
+}
+
+/* 팝업 상단 */
+.comment-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 25px;
+}
+
+.comment-modal-title {
+  font-size: 21px;
   font-weight: 700;
 }
 
-
-/* 02. 제목과 부제 사이 간격 줄이기 */
-.subtitle {
-  margin-top: 5px;
-}
-
-
-/* 03. 메뉴 숫자와 한글 제목 높이 맞추기 */
-.menu-number {
-  align-self: flex-start;
-  padding-top: 2px;
-  line-height: 1.2;
-}
-
-.menu-text strong {
-  line-height: 1.2;
-}
-
-
-/* 04. 원형 화살표 중앙 정렬 */
-.arrow-circle {
-  display: grid;
-  place-items: center;
-  padding: 0;
-}
-
-.arrow-icon {
-  display: block;
-  width: 100%;
-  line-height: 1;
-  text-align: center;
-  font-family: Arial, sans-serif;
-  font-size: 19px;
-  transform-origin: center;
-}
-
-/* 열린 상태에서 화살표 방향 전환 */
-.accordion-button[aria-expanded="true"] .arrow-icon {
-  transform: rotate(135deg);
-}
-
-
-/* 곡 제목 + DEMO 표시 */
-.track-title-row {
+.comment-close {
   display: flex;
-  align-items: baseline;
-  gap: 9px;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+
+  background: transparent;
+  border: none;
+  color: #171717;
+
+  font-size: 25px;
+  font-weight: 300;
 }
 
-.demo-label {
-  font-size: 11px;
-  font-weight: 500;
-  color: #999999;
-  letter-spacing: 0.3px;
-  white-space: nowrap;
+/* 댓글이 길어져도 팝업 안에서 스크롤 */
+#comment-list {
+  max-height: 280px;
+  overflow-y: auto;
 }
+
+/* 팝업 안 입력창 */
+.comment-modal-card #comment-form {
+  width: 100%;
+}
+
+@media (max-width: 400px) {
+  .comment-modal-card {
+    padding: 24px 18px;
+  }
+}
+

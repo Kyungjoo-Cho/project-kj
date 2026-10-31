@@ -16,10 +16,7 @@
 
   <main class="container">
 
-    <!-- ======================
-         HEADER
-    ======================= -->
-
+    <!-- HEADER -->
     <header class="header">
 
       <div class="artist-name">
@@ -35,10 +32,7 @@
     </header>
 
 
-    <!-- ======================
-         INTRO
-    ======================= -->
-
+    <!-- INTRO -->
     <section class="intro">
 
       <p class="eyebrow">A PERSONAL ARCHIVE</p>
@@ -52,17 +46,11 @@
     </section>
 
 
-    <!-- ======================
-         ACCORDION MENU
-    ======================= -->
-
+    <!-- ACCORDION -->
     <section class="accordion" aria-label="작품 콘텐츠">
 
 
-      <!-- ======================
-           01 ARTIST'S NOTE
-      ======================= -->
-
+      <!-- 01 ARTIST NOTE -->
       <div class="accordion-item">
 
         <button
@@ -99,15 +87,10 @@
           </div>
 
         </div>
-
       </div>
 
 
-
-      <!-- ======================
-           02 MUSIC PLAYER
-      ======================= -->
-
+      <!-- 02 MUSIC -->
       <div class="accordion-item">
 
         <button
@@ -141,12 +124,10 @@
                 ORIGINAL SOUNDTRACK
               </p>
 
-              
-<div class="track-title-row">
-  <h3>잠수</h3>
-  <span class="demo-label">DEMO...</span>
-</div>
-
+              <div class="track-title-row">
+                <h3>잠수</h3>
+                <span class="demo-label">DEMO...</span>
+              </div>
 
               <p class="track-artist">
                 CHO KYUNGJOO
@@ -155,6 +136,7 @@
             </div>
 
 
+            <!-- MUSIC CONTROLS -->
             <div class="player-controls">
 
               <button
@@ -163,7 +145,6 @@
                 type="button"
                 aria-label="재생"
               >▶</button>
-
 
               <div class="progress-area">
 
@@ -186,18 +167,120 @@
 
             </div>
 
+
+            <!-- LIKE & COMMENT BUTTONS -->
+            <div class="social-actions">
+
+              <!-- LIKE -->
+              <button
+                id="like-button"
+                class="social-button"
+                type="button"
+                aria-label="좋아요"
+                aria-pressed="false"
+              >
+                <span class="heart-symbol">♡</span>
+                <span id="like-count">0</span>
+              </button>
+
+
+              <!-- COMMENT -->
+              <button
+                id="comment-toggle"
+                class="social-button"
+                type="button"
+                aria-label="댓글 열기"
+                aria-expanded="false"
+                aria-controls="comment-panel"
+              >
+
+                <svg
+                  class="comment-icon"
+                  viewBox="0 0 24 24"
+                  width="22"
+                  height="22"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5 9 9 0 0 1-4-.9L3 21l1.9-5.5A9 9 0 1 1 21 11.5Z"></path>
+                </svg>
+
+                <span id="comment-count">0</span>
+
+              </button>
+
+            </div>
+
+
+            <!-- COMMENT PANEL -->
+            <div
+              id="comment-panel"
+              class="comment-panel"
+              hidden
+            >
+
+              <h4>댓글 남기기</h4>
+
+              <form id="comment-form">
+
+                <label for="comment-name">
+                  닉네임
+                </label>
+
+                <input
+                  id="comment-name"
+                  type="text"
+                  maxlength="20"
+                  placeholder="닉네임을 입력해주세요"
+                  required
+                >
+
+                <label for="comment-text">
+                  댓글
+                </label>
+
+                <textarea
+                  id="comment-text"
+                  maxlength="300"
+                  rows="3"
+                  placeholder="감상을 남겨주세요"
+                  required
+                ></textarea>
+
+                <button
+                  type="submit"
+                  class="comment-submit"
+                >
+                  등록하기
+                </button>
+
+              </form>
+
+
+              <!-- COMMENT LIST -->
+              <div class="comment-list-header">
+                댓글 <span id="comment-list-count">0</span>
+              </div>
+
+              <div id="comment-list">
+                <p class="no-comments">
+                  아직 댓글이 없습니다.
+                </p>
+              </div>
+
+            </div>
+
           </div>
 
         </div>
-
       </div>
 
 
-
-      <!-- ======================
-           03 LYRICS
-      ======================= -->
-
+      <!-- 03 LYRICS -->
       <div class="accordion-item">
 
         <button
@@ -272,15 +355,10 @@
           </div>
 
         </div>
-
       </div>
 
 
-
-      <!-- ======================
-           04 ACKNOWLEDGEMENTS
-      ======================= -->
-
+      <!-- 04 ACKNOWLEDGEMENTS -->
       <div class="accordion-item">
 
         <button
@@ -307,47 +385,28 @@
         <div id="thanks-content" class="accordion-content" hidden>
 
           <ul class="thanks-list">
-
             <li>한국의 칸예 김재윤</li>
-
             <li>베이스의 신 김지우</li>
-
             <li>지금이 저점인 최고가수 어보구의 신한영</li>
-
             <li>천재 음악가인데 기타도 잘쳐 이강후</li>
-
             <li>음악을 다룰 줄 아는 남자 조민재</li>
-
-            <li>
-              and... 이 모든 걸 해낼 수 있도록
-              나에게 영감을 준 김도균
-            </li>
-
+            <li>and... 이 모든 걸 해낼 수 있도록 나에게 영감을 준 김도균</li>
           </ul>
 
         </div>
-
       </div>
 
     </section>
 
 
-
-    <!-- ======================
-         AUDIO
-         실제 음원은 마지막에 연결
-    ======================= -->
-
+    <!-- AUDIO -->
+    <!-- 아코디언 밖에 있어 메뉴를 닫아도 재생 유지 -->
     <audio id="audio" preload="metadata">
       <source src="assets/song.mp3" type="audio/mpeg">
     </audio>
 
 
-
-    <!-- ======================
-         FOOTER
-    ======================= -->
-
+    <!-- FOOTER -->
     <footer class="footer">
       <span>© 2026 CHO KYUNGJOO</span>
     </footer>
