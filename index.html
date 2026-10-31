@@ -7,23 +7,20 @@
 
   <title>Project 자애법 | 조경주</title>
 
+  <!-- CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
 
-  <!-- 사이트 기능은 Firebase와 별개로 먼저 실행 -->
-  <script src="assets/js/script.js" defer></script>
+  <!-- Firebase: 반드시 이 순서로 한 번씩만 -->
+  <script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
 
-  
-<!-- Firebase 라이브러리 -->
-<script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-<script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
-<script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
-
-<!-- 웹사이트 JavaScript -->
-<script defer src="assets/js/script.js"></script>
-
+  <!-- Website JavaScript: 딱 한 번만 -->
+  <script defer src="assets/js/script.js"></script>
 </head>
 
 <body>
+
   <main class="container">
 
     <!-- HEADER -->
@@ -42,7 +39,7 @@
     </header>
 
 
-    <!-- PROJECT INTRO -->
+    <!-- INTRO -->
     <section class="intro">
 
       <p class="eyebrow">A PERSONAL ARCHIVE</p>
@@ -56,7 +53,7 @@
     </section>
 
 
-    <!-- ACCORDION MENU -->
+    <!-- ACCORDION -->
     <section class="accordion" aria-label="작품 콘텐츠">
 
       <!-- 01 ARTIST'S NOTE -->
@@ -96,7 +93,7 @@
       </div>
 
 
-      <!-- 02 MUSIC -->
+      <!-- 02 LISTEN -->
       <div class="accordion-item">
 
         <button
@@ -121,9 +118,7 @@
 
           <div class="player">
 
-            <!-- TRACK INFORMATION -->
             <div class="track-info">
-
               <p class="track-label">ORIGINAL SOUNDTRACK</p>
 
               <div class="track-title-row">
@@ -132,11 +127,10 @@
               </div>
 
               <p class="track-artist">CHO KYUNGJOO</p>
-
             </div>
 
 
-            <!-- MUSIC CONTROLS -->
+            <!-- PLAY CONTROLS -->
             <div class="player-controls">
 
               <button
@@ -164,11 +158,10 @@
                 </div>
 
               </div>
-
             </div>
 
 
-            <!-- LIKE AND COMMENT -->
+            <!-- SOCIAL -->
             <div class="social-actions">
 
               <button
@@ -222,7 +215,6 @@
             </div>
 
           </div>
-
         </div>
       </div>
 
@@ -340,7 +332,8 @@
     </section>
 
 
-    <!-- AUDIO: 메뉴 밖에 두어 재생 유지 -->
+    <!-- AUDIO -->
+    <!-- 아코디언 외부에 배치해야 메뉴 이동 시에도 재생 유지 -->
     <audio id="audio" preload="metadata">
       <source src="assets/song.mp3" type="audio/mpeg">
     </audio>
@@ -354,7 +347,7 @@
   </main>
 
 
-  <!-- COMMENT MODAL: 별도의 팝업 -->
+  <!-- COMMENT POPUP -->
   <div
     id="comment-panel"
     class="comment-panel"
@@ -370,7 +363,9 @@
 
         <div>
           <h2 id="comment-modal-title">Comments</h2>
-          <p class="modal-subtitle">잠수 · 댓글 <span id="comment-list-count">0</span></p>
+          <p class="modal-subtitle">
+            잠수 · 댓글 <span id="comment-list-count">0</span>
+          </p>
         </div>
 
         <button
@@ -383,11 +378,9 @@
       </div>
 
 
-      <!-- COMMENT FORM -->
       <form id="comment-form">
 
         <label for="comment-name">닉네임</label>
-
         <input
           id="comment-name"
           type="text"
@@ -397,7 +390,6 @@
         >
 
         <label for="comment-text">댓글</label>
-
         <textarea
           id="comment-text"
           maxlength="300"
@@ -413,12 +405,13 @@
 
       </form>
 
+
       <div class="comment-list-header">
         남겨진 이야기
       </div>
 
       <div id="comment-list" aria-live="polite">
-        <p class="no-comments">아직 댓글이 없습니다.</p>
+        <p class="no-comments">댓글을 불러오는 중입니다.</p>
       </div>
 
     </div>
