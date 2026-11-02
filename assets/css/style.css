@@ -674,3 +674,78 @@ button {
     transition: none;
   }
 }
+
+
+/* =========================================
+   FOOTER & CONTACT
+========================================= */
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+
+  margin-top: auto;
+  padding-top: 65px;
+  padding-bottom: 8px;
+
+  color: #aaaaaa;
+}
+
+/* 왼쪽 저작권 */
+.footer-copyright {
+  flex-shrink: 0;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+/* 오른쪽 CONTACT */
+.footer-contact {
+  margin-left: auto;
+  text-align: right;
+}
+
+.contact-title {
+  margin-bottom: 15px;
+
+  font-size: 13px;
+  font-weight: 600;
+  color: #171717;
+}
+
+
+.footer-contact p {
+  margin: 0 0 2px;
+
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: #888888;
+  white-space: nowrap;
+}
+
+.footer-contact p:last-child {
+  margin-bottom: 0;
+}
+
+
+.footer-contact p:last-child {
+  margin-bottom: 0;
+}
+
+/* 작은 모바일 화면 대응 */
+@media (max-width: 380px) {
+
+  .footer {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-contact {
+    width: 100%;
+    margin-left: 0;
+    text-align: right;
+  }
+
+}
